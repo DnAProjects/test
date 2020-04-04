@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Video Website</title>
+  <meta name="description" content="Video website">
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="js/jquery.js"></script>
+
+    
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/indexstyles.css">
+    
+</head>
+
+<body>
+<figure id="video_player">
+	<div id="video_container">
+		<video controls poster="pics/Screen%20Shot%202020-04-01%20at%209.35.47%20PM.png">
+			<source src="vids/Cloud%20Formation%20Video.mp4" type="video/mp4">
+		</video>
+	</div>
+	<figcaption>
+		<a href="vids/Cloud%20Formation%20Video.mp4" class="currentvid">
+			<img src="pics/Screen%20Shot%202020-04-01%20at%209.35.47%20PM.png" alt="Athabasca Glacier">
+		</a>
+		<a href="vids/Pexels%20Videos%201321208.mp4">
+			<img src="pics/Screen%20Shot%202020-04-01%20at%209.36.00%20PM.png" alt="Athabasca Lake">
+		</a>
+		<a href="vids/Pexels%20Videos%201998560.mp4">
+			<img src="pics/Screen%20Shot%202020-04-01%20at%209.36.15%20PM.png" alt="Mountain">
+		</a>
+	</figcaption>
+</figure>
+    
+    
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+    <script src="js/jquery.js"></script>
+    
+    
+ <script>
+var video_player = document.getElementById("video_player");
+video = video_player.getElementsByTagName("video")[0],
+video_links = video_player.getElementsByTagName("figcaption")[0],
+source = video.getElementsByTagName("source"),
+link_list = [],
+path = '',
+currentVid = 0,
+allLnks = video_links.children,
+lnkNum = allLnks.length;
+video.removeAttribute("controls");
+video.removeAttribute("poster");
+    
+(function() {
+	function playVid(index) {
+		video_links.children[index].classList.add("currentvid");
+		source[0].src = path + link_list[index] + ".mp4";
+		source[1].src = path + link_list[index] + ".webm";   
+		currentVid = index;
+		video.load();
+		video.play();
+	}
+	for (var i=0; i<lnkNum; i++) {
+		var filename = allLnks[i].href;
+		link_list[i] = filename.match(/([^\/]+)(?=\.\w+$)/)[0];
+			(function(index){
+				allLnks[i].onclick = function(i){
+					i.preventDefault();
+						for (var i=0; i<lnkNum; i++) {
+							allLnks[i].classList.remove("currentvid");
+						}
+					playVid(index);
+				}
+		})(i);
+}
+    
+
+            video.addEventListener('ended', function () {
+            allLnks[currentVid].classList.remove("currentvid");
+            if ((currentVid + 1) >= lnkNum) {
+                nextVid = 0;
+            } else {
+                nextVid = currentVid+1; 
+            }
+            playVid(nextVid);
+        })
+    
+            video.setAttribute('autoplay');
+
+            video.addEventListener('mouseenter', 
+            function() {
+                video.setAttribute("controls","true");
+            })
+            video.addEventListener('mouseleave', function() {
+                video.removeAttribute("controls");
+            })
+    
+        video.addEventListener('mouseenter', 
+            function() {
+                video.setAttribute("controls","true");
+            })
+            video.addEventListener('mouseleave', function() {
+                video.removeAttribute("controls");
+            })
+
+    </script>
+    </body>
+</html>
